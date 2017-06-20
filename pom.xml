@@ -53,7 +53,8 @@
 		<module>dubbo-admin</module>
 		<module>dubbo-demo</module>
 		<module>hessian-lite</module>
-        <!--<module>dubbo-tool/dubbo-demo-lite-archetype</module>-->
+		<module>dubbo-integration</module>
+		<!--<module>dubbo-tool/dubbo-demo-lite-archetype</module>-->
 	</modules>
 	<profiles>
 		<profile>
@@ -113,7 +114,7 @@
 		<guice_version>3.0</guice_version>
 		<cglib_version>2.2</cglib_version>
 		<webx_version>3.0.8</webx_version>
-        <jackson_version>2.3.3</jackson_version>
+        <jackson_version>2.8.9</jackson_version>
         <commons_pool_version>1.6</commons_pool_version>
         <tomcat_embed_version>8.0.11</tomcat_embed_version>
 		<!-- Log libs -->
@@ -125,6 +126,8 @@
 		<junit_version>4.10</junit_version>
 		<easymock_version>3.0</easymock_version>
 		<jmockit_version>0.999.8</jmockit_version>
+		<!-- resteasy -->
+		<resteasy_version>3.1.3.Final</resteasy_version>
 		<!-- Build args -->
 		<!--<argline>-server -Xms64m -Xmx64m -XX:PermSize=64m -XX:MaxPermSize=64m</argline> -->
 		<skip_maven_deploy>false</skip_maven_deploy>
@@ -399,32 +402,32 @@
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jaxrs</artifactId>
-                <version>3.0.7.Final</version>
+                <version>${resteasy_version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-client</artifactId>
-                <version>3.0.7.Final</version>
+                <version>${resteasy_version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-netty</artifactId>
-                <version>3.0.7.Final</version>
+                <version>${resteasy_version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jdk-http</artifactId>
-                <version>3.0.7.Final</version>
+                <version>${resteasy_version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jackson-provider</artifactId>
-                <version>3.0.7.Final</version>
+                <version>${resteasy_version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jaxb-provider</artifactId>
-                <version>3.0.7.Final</version>
+                <version>${resteasy_version}</version>
             </dependency>
             <dependency>
                 <groupId>com.esotericsoftware.kryo</groupId>

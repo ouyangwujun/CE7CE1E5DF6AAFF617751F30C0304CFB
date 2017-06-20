@@ -22,7 +22,7 @@
 
     <dubbo:application name="demo-provider" owner="programmer" organization="dubbox"/>
 
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <dubbo:registry address="zookeeper://192.168.6.18:2181"/>
 
     <!--uncomment this if you want to test dubbo's monitor-->
     <!--<dubbo:monitor protocol="registry"/>-->
@@ -81,4 +81,23 @@
     <bean id="anotherUserRestService" class="com.alibaba.dubbo.demo.user.facade.AnotherUserRestServiceImpl">
         <property name="userService" ref="userService"/>
     </bean>
+
+    <bean id="swaggerService" class="com.alibaba.dubbo.integration.swagger.DubboSwaggerApiListingResource"/>
+
+    <bean id="beanConfig" class="io.swagger.jaxrs.config.BeanConfig">
+        <property name="schemes" value="http" />
+        <property name="resourcePackage" value="com.alibaba.dubbo.demo.user"/>
+        <property name="version" value="2.0"/>
+        <property name="host" value="localhost:8888"/>
+        <property name="basePath" value="/services/"/>
+        <property name="title" value="title"/>
+        <property name="description" value="desc"/>
+        <property name="contact" value="abc"/>
+        <property name="license" value="Apache 2.0"/>
+        <property name="licenseUrl" value="http://www.apache.org/licenses/LICENSE-2.0.html"/>
+        <property name="scan" value="true" />
+    </bean>
+
+    <dubbo:service interface="com.alibaba.dubbo.integration.swagger.DubboSwaggerService" ref="swaggerService"/>
+
 </beans>
