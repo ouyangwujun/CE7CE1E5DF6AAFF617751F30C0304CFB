@@ -40,7 +40,6 @@ import javax.ws.rs.core.MediaType;
 @Path("users")
 @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 @Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.TEXT_XML_UTF_8})
-@Api("Demo-api")
 public class UserRestServiceImpl implements UserRestService {
 
 //    private static final Logger logger = LoggerFactory.getLogger(UserRestServiceImpl.class);
@@ -51,9 +50,6 @@ public class UserRestServiceImpl implements UserRestService {
         this.userService = userService;
     }
 
-    @GET
-    @Path("{id : \\d+}")
-    @ApiOperation(value="通过主键获取用户信息")
     public User getUser(@PathParam("id") Long id/*, @Context HttpServletRequest request*/) {
         // test context injection
 //        System.out.println("Client address from @Context injection: " + (request != null ? request.getRemoteAddr() : ""));
@@ -67,9 +63,6 @@ public class UserRestServiceImpl implements UserRestService {
         return userService.getUser(id);
     }
 
-    @POST
-    @Path("register")
-    @ApiOperation(value="通过主键获取用户信息")
     public RegistrationResult registerUser(User user) {
         return new RegistrationResult(userService.registerUser(user));
     }

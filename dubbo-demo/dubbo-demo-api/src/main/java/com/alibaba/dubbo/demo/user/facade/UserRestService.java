@@ -16,8 +16,13 @@
 package com.alibaba.dubbo.demo.user.facade;
 
 import com.alibaba.dubbo.demo.user.User;
+import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 import javax.validation.constraints.Min;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 /**
  * This interface acts as some kind of service broker for the original UserService
@@ -29,12 +34,22 @@ import javax.validation.constraints.Min;
  *
  * @author lishen
  */
+@Path("users")
+@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
+@Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.TEXT_XML_UTF_8})
+@Api("用户服务")
 public interface UserRestService {
 
     /**
      * the request object is just used to test jax-rs injection.
      */
+    @GET
+    @Path("{id : \\d+}")
+    @ApiOperation(value="通过主键获取用户信息")
     User getUser(@Min(value=1L, message="User ID must be greater than 1") Long id/*, HttpServletRequest request*/);
 
+    @POST
+    @Path("register")
+    @ApiOperation(value="注册用户")
     RegistrationResult registerUser(User user);
 }

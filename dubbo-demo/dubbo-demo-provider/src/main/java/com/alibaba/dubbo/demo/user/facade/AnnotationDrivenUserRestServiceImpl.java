@@ -36,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 @Path("customers")
 @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 @Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.TEXT_XML_UTF_8})
-public class AnnotationDrivenUserRestServiceImpl implements UserRestService {
+public class AnnotationDrivenUserRestServiceImpl implements AnotherUserRestService {
 
 //    private static final Logger logger = LoggerFactory.getLogger(UserRestServiceImpl.class);
 
