@@ -87,7 +87,7 @@
     <bean id="beanConfig" class="io.swagger.jaxrs.config.BeanConfig">
         <property name="schemes" value="http" />
         <!-- com.abc.aa这个值不能写成com.abc.aa.*-->
-        <property name="resourcePackage" value="com.alibaba.dubbo.demo.user"/>
+        <property name="resourcePackage" value="com.alibaba.dubbo.demo.user,com.object.test"/>
         <property name="version" value="2.0"/>
         <property name="host" value="localhost:8888"/>
         <property name="basePath" value="/services/"/>
