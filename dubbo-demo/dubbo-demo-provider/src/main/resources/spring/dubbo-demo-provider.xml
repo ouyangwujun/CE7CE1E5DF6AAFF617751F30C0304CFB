@@ -86,12 +86,13 @@
 
     <bean id="beanConfig" class="io.swagger.jaxrs.config.BeanConfig">
         <property name="schemes" value="http" />
+        <!-- com.abc.aa这个值不能写成com.abc.aa.*-->
         <property name="resourcePackage" value="com.alibaba.dubbo.demo.user"/>
         <property name="version" value="2.0"/>
         <property name="host" value="localhost:8888"/>
         <property name="basePath" value="/services/"/>
-        <property name="title" value="title"/>
-        <property name="description" value="desc"/>
+        <property name="title" value="这个是标题啊"/>
+        <property name="description" value="这里是描述呢"/>
         <property name="contact" value="abc"/>
         <property name="license" value="Apache 2.0"/>
         <property name="licenseUrl" value="http://www.apache.org/licenses/LICENSE-2.0.html"/>
