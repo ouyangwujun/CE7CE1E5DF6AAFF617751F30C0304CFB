@@ -30,6 +30,6 @@
 	</properties>
 	<modules>
 		<module>dubbo-integration-swagger</module>
-		<module>dubbo-integration-security</module>
+		<module>dubbo-integration-restfull</module>
 	</modules>
 </project>

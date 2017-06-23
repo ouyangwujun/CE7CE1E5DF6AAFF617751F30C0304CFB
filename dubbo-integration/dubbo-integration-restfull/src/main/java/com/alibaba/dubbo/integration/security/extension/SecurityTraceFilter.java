@@ -15,6 +15,8 @@
  */
 package com.alibaba.dubbo.integration.security.extension;
 
+import com.alibaba.dubbo.integration.security.exception.RestFullSecurityException;
+
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -28,7 +30,7 @@ import java.io.IOException;
  * @author ouyang
  */
 @Priority(Priorities.USER)
-public class TraceFilter implements ContainerRequestFilter, ContainerResponseFilter {
+public class SecurityTraceFilter implements ContainerRequestFilter, ContainerResponseFilter {
     /**
      * Request filter invoked
      * @param requestContext
@@ -36,6 +38,7 @@ public class TraceFilter implements ContainerRequestFilter, ContainerResponseFil
      */
     public void filter(ContainerRequestContext requestContext) throws IOException {
         System.out.println("Request filter invoked");
+         throw new RestFullSecurityException();
     }
 
     /**

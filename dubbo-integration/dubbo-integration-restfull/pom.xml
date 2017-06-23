@@ -21,7 +21,7 @@
         <artifactId>dubbo-integration</artifactId>
         <version>2.8.4</version>
     </parent>
-    <artifactId>dubbo-integration-security</artifactId>
+    <artifactId>dubbo-integration-restfull</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>The integration module of dubbo project</description>
@@ -83,19 +83,6 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxb-provider</artifactId>
-        </dependency>
-
-
-        <!-- swagger -->
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.5.14</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-jaxrs</artifactId>
-            <version>1.5.14</version>
         </dependency>
 
     </dependencies>

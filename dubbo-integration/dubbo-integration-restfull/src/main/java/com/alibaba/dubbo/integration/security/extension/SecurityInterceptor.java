@@ -28,7 +28,7 @@ import java.io.IOException;
  * @author ouyang
  */
 @Priority(Priorities.USER)
-public class TraceInterceptor implements ReaderInterceptor, WriterInterceptor {
+public class SecurityInterceptor implements ReaderInterceptor, WriterInterceptor {
 
     public Object aroundReadFrom(ReaderInterceptorContext readerInterceptorContext) throws IOException, WebApplicationException {
         System.out.println("Reader interceptor invoked");

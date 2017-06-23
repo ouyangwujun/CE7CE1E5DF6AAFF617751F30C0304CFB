@@ -15,20 +15,24 @@
  */
 package com.alibaba.dubbo.integration.security.extension;
 
+import com.alibaba.dubbo.integration.security.exception.RestFullSecurityException;
 import com.alibaba.dubbo.rpc.RpcContext;
+import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
 /**
+ * 认证异常
  * @author ouyang
  */
-public class CustomExceptionMapper implements ExceptionMapper<NotFoundException> {
-
-    public Response toResponse(NotFoundException e) {
-        System.out.println("Exception mapper successfully got an exception: " + e + ":" + e.getMessage());
+public class SecurityExceptionMapper implements ExceptionMapper<RestFullSecurityException> {
+    @Override
+    public Response toResponse(RestFullSecurityException e) {
+        RestFullSecurityException.Status status = RestFullSecurityException.Status.AUTHENTICATION_ERROR;
+        System.out.println("Exception mapper successfully got an RestFullSecurityException: " + e + ":" + e.getMessage());
         System.out.println("Client IP is " + RpcContext.getContext().getRemoteAddressString());
-        return Response.status(Response.Status.NOT_FOUND).entity("Oops! the requested resource is not found!").type("text/plain").build();
+        return Response.status(status.getStatusCode()).entity(new RestFullSecurityException.StatusEntity(status)).type(ContentType.APPLICATION_JSON_UTF_8).build();
     }
 }
