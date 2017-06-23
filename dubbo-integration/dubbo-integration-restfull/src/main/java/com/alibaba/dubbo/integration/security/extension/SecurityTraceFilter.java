@@ -38,7 +38,7 @@ public class SecurityTraceFilter implements ContainerRequestFilter, ContainerRes
      */
     public void filter(ContainerRequestContext requestContext) throws IOException {
         System.out.println("Request filter invoked");
-         throw new RestFullSecurityException();
+        throw new RestFullSecurityException();
     }
 
     /**

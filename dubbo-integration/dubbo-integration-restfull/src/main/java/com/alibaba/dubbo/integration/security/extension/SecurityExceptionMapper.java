@@ -31,7 +31,7 @@ public class SecurityExceptionMapper implements ExceptionMapper<RestFullSecurity
     @Override
     public Response toResponse(RestFullSecurityException e) {
         RestFullSecurityException.Status status = RestFullSecurityException.Status.AUTHENTICATION_ERROR;
-        System.out.println("Exception mapper successfully got an RestFullSecurityException: " + e + ":" + e.getMessage());
+        System.out.println("Exception mapper successfully got an RestFullSecurityException: " + e);
         System.out.println("Client IP is " + RpcContext.getContext().getRemoteAddressString());
         return Response.status(status.getStatusCode()).entity(new RestFullSecurityException.StatusEntity(status)).type(ContentType.APPLICATION_JSON_UTF_8).build();
     }
