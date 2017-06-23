@@ -30,5 +30,6 @@
 	</properties>
 	<modules>
 		<module>dubbo-integration-swagger</module>
+		<module>dubbo-integration-security</module>
 	</modules>
 </project>
