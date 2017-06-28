@@ -1,5 +1,7 @@
 package com.alibaba.dubbo.integration.security.exception;
 
+import com.alibaba.dubbo.common.json.JSON;
+
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.core.Response;
 
@@ -14,19 +16,19 @@ public class RestFullSecurityException extends RuntimeException {
         super(message, cause);
     }
 
-    public RestFullSecurityException(Status status) {
-        this(status.getReasonPhrase(), (Throwable)null);
+    public RestFullSecurityException() {
+        this(new StatusEntity(Status.AUTHENTICATION_ERROR));
     }
 
-    public RestFullSecurityException() {
-        this(Status.AUTHENTICATION_ERROR);
+    public RestFullSecurityException(StatusEntity status) {
+        this(status.getReason(), (Throwable)null);
     }
 
     public static enum Status{
         AUTHENTICATION_ERROR(1000000, "Authentication error");
 
-        private final int code;
-        private final String reason;
+        private int code;
+        private String reason;
 
         private Status(int statusCode, String reasonPhrase) {
             this.code = statusCode;
@@ -46,7 +48,7 @@ public class RestFullSecurityException extends RuntimeException {
         }
     }
 
-    public static class StatusEntity{
+    public static class StatusEntity<T>{
         public StatusEntity(Status status){
             this.code = status.code;
             this.reason = status.reason;
@@ -55,6 +57,9 @@ public class RestFullSecurityException extends RuntimeException {
         private  int code;
 
         private String reason;
+
+        private T data;
+
 
         public String getReason() {
             return reason;
@@ -70,6 +75,23 @@ public class RestFullSecurityException extends RuntimeException {
 
         public void setCode(int code) {
             this.code = code;
+        }
+
+        public T getData() {
+            return data;
+        }
+
+        public void setData(T data) {
+            this.data = data;
+        }
+
+        @Override
+        public String toString() {
+            return "StatusEntity{" +
+                    "code=" + code +
+                    ", reason='" + reason + '\'' +
+                    ", data=" + data.toString() +
+                    '}';
         }
     }
 }
