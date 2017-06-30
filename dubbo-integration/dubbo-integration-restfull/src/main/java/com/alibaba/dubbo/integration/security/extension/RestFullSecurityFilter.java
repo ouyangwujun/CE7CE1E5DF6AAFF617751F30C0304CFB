@@ -1,7 +1,10 @@
 package com.alibaba.dubbo.integration.security.extension;
 
+import com.alibaba.dubbo.common.json.JSON;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.integration.security.exception.RestFullSecurityException;
+import org.jboss.resteasy.core.MethodInjectorImpl;
+import org.jboss.resteasy.core.ResourceMethodInvoker;
 import org.jboss.resteasy.core.interception.jaxrs.PostMatchContainerRequestContext;
 import org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext;
 
@@ -13,6 +16,10 @@ import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -66,10 +73,18 @@ public class RestFullSecurityFilter implements ContainerRequestFilter{
                     }
                 }
                 if(!isHasAppKey){
-                    RestFullSecurityException.StatusEntity<Object> authenticationError = new RestFullSecurityException.StatusEntity<Object>(RestFullSecurityException.Status.AUTHENTICATION_ERROR);
-                    Object obj = new Object();
-                    authenticationError.setData(obj);
-                    throw new RestFullSecurityException(authenticationError);
+                    Map<String, String> dataMap = new HashMap<String, String>();
+                    RestFullSecurityException.StatusEntity authenticationError = new RestFullSecurityException.StatusEntity(RestFullSecurityException.Status.AUTHENTICATION_ERROR);
+                    //query param
+                    MultivaluedMap<String, String> queryParam = containerRequestContext.getUriInfo().getQueryParameters();
+                    Iterator<String> iterator = queryParam.keySet().iterator();
+                    while (iterator.hasNext()){
+                        String key = iterator.next();
+                        String value = queryParam.getFirst(key);
+                        dataMap.put(key, value);
+                    }
+                    authenticationError.setRequestData(dataMap);
+                    throw new RestFullSecurityException(JSON.json(authenticationError));
                 }
             }
         }

@@ -15,6 +15,8 @@
  */
 package com.alibaba.dubbo.integration.security.extension;
 
+import com.alibaba.dubbo.common.json.JSON;
+import com.alibaba.dubbo.common.json.ParseException;
 import com.alibaba.dubbo.integration.security.exception.RestFullSecurityException;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
@@ -30,9 +32,10 @@ import javax.ws.rs.ext.ExceptionMapper;
 public class SecurityExceptionMapper implements ExceptionMapper<RestFullSecurityException> {
     @Override
     public Response toResponse(RestFullSecurityException e) {
-        RestFullSecurityException.Status status = RestFullSecurityException.Status.AUTHENTICATION_ERROR;
-        System.out.println("Exception mapper successfully got an RestFullSecurityException: " + e);
+        System.out.println("Exception mapper successfully got an SecurityExceptionMapper: " + e);
         System.out.println("Client IP is " + RpcContext.getContext().getRemoteAddressString());
-        return Response.status(status.getStatusCode()).entity(new RestFullSecurityException.StatusEntity(status)).type(ContentType.APPLICATION_JSON_UTF_8).build();
+        RestFullSecurityException.Status status = RestFullSecurityException.Status.AUTHENTICATION_ERROR;
+        String jsonMessage = e.getMessage();
+        return Response.status(status.getStatusCode()).entity(jsonMessage).type(ContentType.TEXT_PLAIN_UTF_8).build();
     }
 }

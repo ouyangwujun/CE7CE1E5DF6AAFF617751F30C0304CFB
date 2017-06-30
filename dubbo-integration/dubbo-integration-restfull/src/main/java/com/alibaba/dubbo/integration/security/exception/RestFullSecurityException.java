@@ -4,6 +4,9 @@ import com.alibaba.dubbo.common.json.JSON;
 
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by ouyang on 2017/6/23.
@@ -20,8 +23,12 @@ public class RestFullSecurityException extends RuntimeException {
         this(new StatusEntity(Status.AUTHENTICATION_ERROR));
     }
 
-    public RestFullSecurityException(StatusEntity status) {
-        this(status.getReason(), (Throwable)null);
+    public RestFullSecurityException(StatusEntity statusEntity) {
+        this(statusEntity.toString(), (Throwable)null);
+    }
+
+    public RestFullSecurityException(String jsonStatusEntity) {
+        this(jsonStatusEntity, (Throwable)null);
     }
 
     public static enum Status{
@@ -48,7 +55,8 @@ public class RestFullSecurityException extends RuntimeException {
         }
     }
 
-    public static class StatusEntity<T>{
+    public static class StatusEntity implements Serializable{
+
         public StatusEntity(Status status){
             this.code = status.code;
             this.reason = status.reason;
@@ -58,7 +66,7 @@ public class RestFullSecurityException extends RuntimeException {
 
         private String reason;
 
-        private T data;
+        private Map<String, String> requestData;
 
 
         public String getReason() {
@@ -77,21 +85,12 @@ public class RestFullSecurityException extends RuntimeException {
             this.code = code;
         }
 
-        public T getData() {
-            return data;
+        public Map<String, String> getRequestData() {
+            return requestData;
         }
 
-        public void setData(T data) {
-            this.data = data;
-        }
-
-        @Override
-        public String toString() {
-            return "StatusEntity{" +
-                    "code=" + code +
-                    ", reason='" + reason + '\'' +
-                    ", data=" + data.toString() +
-                    '}';
+        public void setRequestData(Map<String, String> requestData) {
+            this.requestData = requestData;
         }
     }
 }
